@@ -1,18 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minami Shimakage</title>
-    <style></style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cropped.pictures</title>
+<style>
+* {
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #FFF;
+}
+
+.images {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+}
+
+.imageSlot {
+    width: 450px;
+    height: 70vh;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.imageSlot:first-child {
+    justify-content: flex-end;
+}
+
+
+.imageSlot:last-child {
+    justify-content: flex-start;
+}
+
+
+.imageSlot:first-child {
+    padding-right: 10px;
+}
+
+.imageSlot:last-child {
+    padding-left: 10px;
+}
+
+.images img {
+    display: block;
+    width: auto;
+    height: min(529px, 70vh);
+    max-width: 100%;
+    object-fit: contain;
+    cursor: move;
+}
+
+p {
+    color: black;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    line-height: 1.2;
+   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    z-index: 999;
+    mix-blend-mode: darken;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    border-bottom: solid 1px black ;
+}
+
+
+@media (max-width: 600px) {
+    .images {
+        transform: translate(-50%, -50%) rotate(80deg);
+    }
+}
+
+</style>
 </head>
 <body>
-<h1 style="font-family: 'Times New Roman', Times, serif; font-size: 14px; font-weight: 200;">
-under construction...<br>
-<a href="mailto:shimakageminami@gmail.com">email</a>
-<br><br><br><br><br>
->* ))))>< 
+<p>
+Minami Shimakage <br> 
+<a href="mailto:shimakageminami@gmail.com">Contact</a>
+</p>
 
-</h1>
+<div class="images">
+    <div class="imageSlot">
+        <img id="leftImage" alt="Left image">
+    </div>
+    <div class="imageSlot">
+        <img id="rightImage" alt="Right image">
+    </div>
+</div>
+
+
 </body>
+<script>
+const leftCount = 22;
+const rightCount = 22;
+
+let currentLeft;
+let currentRight;
+
+function randomImage(prefix, count, current) {
+let number;
+
+do {
+number = Math.floor(Math.random() * count) + 1;
+} while (number === current && count > 1);
+
+return {
+number: number,
+src: `img/${prefix}_${number}.jpeg`
+};
+}
+
+function changeLeft() {
+const result = randomImage("l", leftCount, currentLeft);
+currentLeft = result.number;
+document.getElementById("leftImage").src = result.src;
+}
+
+function changeRight() {
+const result = randomImage("r", rightCount, currentRight);
+currentRight = result.number;
+document.getElementById("rightImage").src = result.src;
+}
+
+
+changeLeft();
+changeRight();
+
+
+document.getElementById("leftImage").onclick = changeLeft;
+document.getElementById("rightImage").onclick = changeRight;
+
+</script>
 </html>
